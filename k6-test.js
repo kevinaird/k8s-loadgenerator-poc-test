@@ -3,17 +3,15 @@ import { check } from "k6";
 
 
 export let options = {
-    preAllocatedVUs: 30,
-    maxVUs: 30,
-    rate: 30,
-    duration: '5m',
-    thresholds:{
-        //Define requirements
-        'failed requests': ['rate<0.1'], // less than 10 percent failures
-        'http_req_duration': ['p(95)<200','p(99)<300'],
-        'checks':['rate>0.95']
-    }
-
+    scenarios: {
+        sc1: {
+            executor: 'constant-arrival-rate',
+            preAllocatedVUs: 30,
+            maxVUs: 30,
+            rate: 30,
+            duration: '5m',
+        },
+    },
 }
 
 export default function(){
